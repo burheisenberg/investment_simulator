@@ -1,5 +1,5 @@
 %% make money
-clear, clc, close
+clear, clc, close all
 % dolar-tl exchange rate in August 2023 is 27
 % dolar-tl exchange rate in September 2024 is 34
 % net increase in exchange rate is 26%
@@ -16,21 +16,21 @@ clear, clc, close
 
 % Savings Distribution: 
 % 20% TL, 30% Dollars, 20% BIST100, 30% Bank (interest)
-distribution = [0.05, 0.2, 0.2, 0.55]; 
+distribution = [0.0, 0.0, 0.05, 0.95]; 
 
 % Monthly and initial saving details
 initial_saving = 30000;
-monthly_savings = [0000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000]';
-interest_rates = (1+[42    37    37    32    32    32    32    27    27    17    17    17]/100)'.^(1/12)-1; % Monthly interest rates
+monthly_savings = [35000, 45000, 35000, 35000, 35000, 35000, 35000, 35000, 35000, 35000, 35000]';
+interest_rates = (1+[42    42    42    42    42    42    42    42    42    42    42    42]/100)'.^(1/12)-1; % Monthly interest rates
 
 % Interpolation for Exchange rates and BIST100 index using a growth factor (1.94% monthly increase)
 months_in_year = 12; % Defining the number of months for interpolation
-growth_rate_dollar = 1.26; % Monthly increase factor of 1.94%
-growth_rate_bist100 = 1.4;
+growth_rate_dollar = 1.0194; % Monthly increase factor of 1.94% (annual 26%)
+growth_rate_bist100 = 1.0194;
 
 % Interpolating exchange rate and BIST100 index over the period
-dolar_exch = 34.1 * growth_rate_dollar .^ (0:1/(length(monthly_savings)-1):ceil((length(monthly_savings)+1)/months_in_year))';
-bist100 = 9760 * growth_rate_bist100 .^ (0:1/(length(monthly_savings)-1):ceil((length(monthly_savings)+1)/months_in_year))';
+dolar_exch = 34.1 * growth_rate_dollar .^ (0:length(monthly_savings)-1)';
+bist100 = 9760 * growth_rate_bist100 .^ (0:length(monthly_savings)-1)';
 
 % Initialize arrays for savings types
 tl_savings = zeros(length(monthly_savings), 1); % TL-based savings
